@@ -50,10 +50,12 @@ const appsCollection = database.collection("apps");
 
 app.get("/apps", async (req, res) => {
   try {
-    const { limit  = 0, skip = 0 } = req.query;
+    const { limit = 0, skip = 0, sort = "size", order = "desc" } = req.query;
+    const sortOption = {};
+    sortOption[sort || "size"] = order === "asc" ? 1 : -1;
     const apps = await appsCollection
       .find()
-      .sort({ _id: 1 })
+      .sort(sortOption)
       .limit(Number(limit))
       .skip(Number(skip))
       .project({ description: 0, ratings: 0 })
