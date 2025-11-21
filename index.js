@@ -50,7 +50,7 @@ const appsCollection = database.collection("apps");
 
 app.get("/apps", async (req, res) => {
   try {
-    const { limit = 0, skip = 0 } = req.query;
+    const { limit  = 0, skip = 0 } = req.query;
     const apps = await appsCollection
       .find()
       .sort({ _id: 1 })
